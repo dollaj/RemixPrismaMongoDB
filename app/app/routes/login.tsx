@@ -1,12 +1,15 @@
-import { Layout } from "~/components/layout"
-import { FormField } from "~/components/form-field"
-import { useState } from "react"
-import { ActionFunction } from "@remix-run/node";
-import { json } from "react-router";
+import { Layout } from "~/components/layout";
+import { FormField } from "~/components/form-field";
+import { ActionFunction, LoaderFunction, json, redirect } from "@remix-run/node";
 import { validateEmail, validatePassword, validateName } from "~/utils/validators.server";
 import { login, register } from "~/utils/auth.server";
 import { useActionData } from "@remix-run/react";
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import { getUser } from "~/utils/auth.server";
+
+export const loader: LoaderFunction = async ({request}) => {
+  return await getUser(request) ? redirect("/") : null;
+}
 
 export const action: ActionFunction = async ({request}) => {
   const form = await request.formData();
@@ -71,8 +74,8 @@ export default function Login() {
   const [formData, setFormData] = useState({
     email: actionData?.fields?.email || '',
     password: actionData?.fields?.password || '',
-    firstName: actionData?.fields?.firstName || '',
-    lastName: actionData?.fields?.lastName || ''
+    firstName: actionData?.fields?.lastName || '',
+    lastName: actionData?.fields?.firstName || '',
   })
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, field: string) => {
@@ -88,7 +91,7 @@ export default function Login() {
         email: '',
         password: '',
         firstName: '',
-        lastName: '',
+        lastName: ''
       }
       setErrors(newState)
       setFormError('')
@@ -110,11 +113,10 @@ export default function Login() {
         
       <button
         onClick={() => setAction(action == 'login' ? 'register' : 'login')}
-        className="absolute top-8 right-8 bg-zinc-200 rounded-xl font-semibold p-1.5"
+        className="bg-zinc-200 rounded-xl font-semibold p-1.5 mt-2 transition duration-300 ease-in-out hover:-translate-y-1 absolute top-8 right-8"
       >
         {action === 'login' ? 'Sign Up' : 'Sign In'}
       </button>
-        
         
         <h2 className="text-5xl font-extrabold text-emerald-300">
           welcome
@@ -164,7 +166,7 @@ export default function Login() {
           }
 
           <div className="w-full text-center">
-          <button type="submit" name="_action" value={action} className="bg-zinc-200 rounded-xl font-semibold p-1.5 mt-2">{action == 'login' ? 'login' : 'sign up'}</button>
+          <button type="submit" name="_action" value={action} className="bg-zinc-200 rounded-xl font-semibold p-1.5 mt-2 transition duration-300 ease-in-out hover:-translate-y-1">{action == 'login' ? 'login' : 'sign up'}</button>
           </div>           
         </form>
       </div>
