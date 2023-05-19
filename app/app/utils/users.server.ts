@@ -1,4 +1,3 @@
-import { Film } from "@prisma/client";
 import { prisma } from "./prisma.server";
 import { RegisterForm } from "./types.server";
 import bcrypt from "bcryptjs";
@@ -13,33 +12,20 @@ export const createUser = async (user: RegisterForm) => {
         firstName: user.firstName,
         lastName: user.lastName,
       },
-      planToWatch: [],
     },
   });
   return { id: newUser.id, email: user.email };
 };
 
-export const getUserFilms = async (userId: string) => {
-  return await prisma.user.findUnique({
+export const getOtherUsers = async (userId: string) => {
+  return prisma.user.findMany({
     where: {
-      id: userId
+      id: { not: userId },
     },
-    select: {
-      planToWatch: true
-    }
+    orderBy: {
+      profile: {
+        firstName: 'asc',
+      },
+    },
   })
 }
-
-export const addUserFilms = async (userId: string, film: Film) => {
-  return await prisma.user.update({
-    where: {
-      id: userId
-    },
-    data: {
-      planToWatch: {
-        push: film
-      }
-    }
-  })
-}
-
