@@ -1,11 +1,17 @@
-import { json, LoaderFunction } from '@remix-run/node'
+import { json, LoaderFunction, redirect } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
+import { getUserById } from '~/utils/users.server'
 
 // 1
 export const loader: LoaderFunction = async ({ request, params }) => {
-  // 2
   const { userId } = params
-  return json({ userId })
+
+  if (typeof userId !== 'string') {
+    return redirect('/home')
+  }
+  
+  const recipient = await getUserById(userId)
+  return json({ recipient })
 }
 
 export default function KudoModal() {
