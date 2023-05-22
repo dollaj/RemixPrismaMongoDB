@@ -1,5 +1,5 @@
 import { LoaderFunction, json } from '@remix-run/node'
-import { requireUserId } from '~/utils/auth.server'
+import { requireUserId, getUser } from '~/utils/auth.server'
 import { UserPanel } from '~/components/user-panel';
 import { Layout } from '~/components/layout';
 import { getOtherUsers } from '~/utils/users.server';
@@ -53,18 +53,19 @@ export const loader: LoaderFunction = async ({ request }) => {
     }
   }
   const kudos = await getFilteredKudos(userId, sortOptions, textFilter)
-  return json({ users, kudos })
+  const user = await getUser(request)
+  return json({ users, kudos, user })
 }
 
 export default function Home() {
-  const { users, kudos } = useLoaderData()
+  const { users, kudos, user } = useLoaderData()
   return (
     <Layout>
       <Outlet />
       <div className="h-full flex">
         <UserPanel users={users} />
         <div className="flex-1 flex flex-col">
-          <SearchBar />
+        <SearchBar profile={user.profile} />
           <div className="flex-1 flex">
             <div className="w-full p-10 flex flex-col gap-y-4">
               {kudos.map((kudo: KudoWithProfile) => (
