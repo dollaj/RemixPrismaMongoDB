@@ -168,7 +168,7 @@ export default function KudoModal() {
           <div className="flex-1" />
           <button
             type="submit"
-            className="rounded-xl bg-yellow-300 font-semibold text-blue-600 w-80 h-12 transition duration-300 ease-in-out hover:bg-yellow-400 hover:-translate-y-1"
+            className="rounded-xl bg-zinc-400 font-semibold w-80 h-12 transition duration-300 ease-in-out hover:-translate-y-1"
           >
             Send
           </button>
