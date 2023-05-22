@@ -32,13 +32,6 @@ enum Emoji {
   HANDSUP
 }
 
-enum Department {
-  MARKETING
-  SALES
-  ENGINEERING
-  HR
-}
-
 enum Color {
   RED
   GREEN
