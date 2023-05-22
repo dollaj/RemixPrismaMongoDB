@@ -24,7 +24,6 @@ export const action: ActionFunction = async ({ request }) => {
     if (
        typeof firstName !== 'string'
        || typeof lastName !== 'string'
-       || typeof department !== 'string'
     ) {
        return json({ error: `Invalid Form Data` }, { status: 400 });
     }
@@ -33,11 +32,10 @@ export const action: ActionFunction = async ({ request }) => {
     const errors = {
        firstName: validateName(firstName),
        lastName: validateName(lastName),
-       department: validateName(department)
     }
  
     if (Object.values(errors).some(Boolean))
-       return json({ errors, fields: { department, firstName, lastName } }, { status: 400 });
+       return json({ errors, fields: { firstName, lastName } }, { status: 400 });
  
     await updateUser(userId, {
         firstName,
@@ -92,7 +90,7 @@ export default function ProfileSettings() {
                 onChange={e => handleInputChange(e, 'firstName')}
                 error={actionData?.errors?.firstName}
                 />
-            <FormField
+              <FormField
                 htmlFor="lastName"
                 label="Last Name"
                 value={formData.lastName}
