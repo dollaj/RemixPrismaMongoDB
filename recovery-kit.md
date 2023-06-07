@@ -3,17 +3,17 @@
 | M25 R00 01/07/2022                                           | %XXXXX_NOME_PROGETTO% | Revisione: %REV%        |
 
 <style>
-    .main {
+    .main{
         background: #7814;
         padding: 1px;
-        height: 770px;
+        height: 95%;
         margin:30px auto;
         border: 3px solid #2344;
         border-radius: 30px;
         width: 85%
     }
-    h1 {
-        font-family;
+    h1{
+        font-size: 20px;
         text-align: center;
     }
     #containerTL{
@@ -24,17 +24,17 @@
         top: 0px;
         right: 40px;
     }
-    h3 {
+    h3{
         text-align: center;
         padding-bottom: 20px;
     }
-    label {
+    label{
         font-size: 17px;
         font-style: ;
         display: block;
         margin-left: 10px;
     }
-    input {
+    input{
         width: 100%;
         height: 40px;
         border: 3px solid #3869;
@@ -48,7 +48,9 @@
         padding: 20px 30px 20px;
         max-width:600px;
         max-height: 700px;
-        margin:30px auto;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
         border-radius: 20px;
         border:5px solid #3815;
     }
@@ -78,7 +80,13 @@
     button:hover{
         color: #fff;
         background-color: #3818;
-        }     
+    }
+    .immP{
+        width: 40%;
+    }
+    #footer{
+        text-align: center;
+    }
 </style>
 
 <div class="main">
@@ -91,7 +99,7 @@
             <h3>DETTAGLI ACCOUNT</h2>
             <div>
                 <label for="link"><b>URL DI ACCESSO</label>
-                <input type="url" name="link" value="https://srvpw01.centroricercheducati.com/"> <br>
+                <input type="url" name="link" value="https://srvpw01.centroricercheducati.com"> <br>
                 <label for="email">EMAIL</label> <input type="email" name="email"> <br>
                 <label for="password">PASSPHRASE</label> <input type="password" name="password"> <br>
                 <label for="chiave">CHIAVE PRIVATA PgP</b></label> <input type="text" name="chiave">
@@ -100,5 +108,8 @@
                 <button>invia</button> 
             </div>
         </form>
+    </div>
+    <div id="footer">
+        <img src="https://images.g2crowd.com/uploads/product/image/social_landscape/social_landscape_e14e3d85ce215f43507949100ee2c3f0/passbolt.png" class="immP">
     </div>
 </div>
